@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "",
-		"name": "CSC Ground Segment Interface Delivery Point Test Suite v2.1",
+		"_postman_id": "bd43221e-fc10-473c-b1b9-eac172c671be",
+		"name": "CSC Ground Segment Interface Delivery Point Test Suite v2.2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -7038,6 +7038,3062 @@
 										{
 											"key": "$filter",
 											"value": "contains(Name,'SR_2_NRPPAX') and startswith(Name,'S')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Sentinel-5P",
+			"item": [
+				{
+					"name": "LTA",
+					"item": [
+						{
+							"name": "S5P_L0_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"S5P\"]);};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L0\"]);};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L0__ENG_A_\",\"L0__ODB_1_\",\"L0__ODB_2_\",\"L0__ODB_3_\",\"L0__ODB_4_\",\"L0__ODB_5_\",\"L0__ODB_6_\",\"L0__ODB_7_\",\"L0__ODB_8_\",\"L0__PDQ___\",\"L0__SAT_A_\"]);",
+											"",
+											"};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"",
+											"test_schema={};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.OriginDate=function (element) {pm.expect(element.OriginDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ModificationDate=function (element) {pm.expect(element.ModificationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.Online=function (element) {pm.expect(element.Online).to.be.oneOf([TRUE,FALSE,true,false]);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L0__ENG_A_') or contains(Name,'L0__ODB_1_') or contains(Name,'L0__ODB_2_') or contains(Name,'L0__ODB_3_') or contains(Name,'L0__ODB_4_') or contains(Name,'L0__ODB_5_') or contains(Name,'L0__ODB_6_') or contains(Name,'L0__ODB_7_') or contains(Name,'L0__ODB_8_') or contains(Name,'L0__PDQ___') or contains(Name,'L0__SAT_A_')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L0__ENG_A_') or contains(Name,'L0__ODB_1_') or contains(Name,'L0__ODB_2_') or contains(Name,'L0__ODB_3_') or contains(Name,'L0__ODB_4_') or contains(Name,'L0__ODB_5_') or contains(Name,'L0__ODB_6_') or contains(Name,'L0__ODB_7_') or contains(Name,'L0__ODB_8_') or contains(Name,'L0__PDQ___') or contains(Name,'L0__SAT_A_')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ENG_A_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_1_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_2_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_3_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_4_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_5_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_6_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_7_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_8_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__PDQ___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__SAT_A_') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L2_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.qualityStatus=function (element) {pm.expect(element.Name).eq('qualityStatus');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"DEGRADED\",\"NOMINAL\"]);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\d/);};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPNLL2DP\",\"upas-l2\",\"S5P_NPCC\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2__AER_AI\",\"L2__AER_LH\",\"L2__CH4___\",\"L2__CLOUD_\",\"L2__CO____\",\"L2__HCHO__\",\"L2__NO2___\",\"L2__NP_BD3\",\"L2__NP_BD6\",\"L2__NP_BD7\",\"L2__O3____\",\"L2__O3__PR\",\"L2__O3_TCL\",\"L2__SO2___\"]);",
+											"",
+											"};",
+											"test_map.baselineCollection=function (element) {pm.expect(element.Name).eq('baselineCollection');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/[0-9]{2}/);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.qualityStatus=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.baselineCollection=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.OriginDate=function (element) {pm.expect(element.OriginDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ModificationDate=function (element) {pm.expect(element.ModificationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.Online=function (element) {pm.expect(element.Online).to.be.oneOf([TRUE,FALSE,true,false]);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_AI') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_LH') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CH4___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CLOUD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CO____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__HCHO__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3__PR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3_TCL') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__SO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L1B_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\d/);};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"tropl10b\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/\\d.\\d.\\d.*/);};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1b\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1B_CA_SIR\",\"L1B_CA_UVN\",\"L1B_ENG_DB\",\"L1B_IR_SIR\",\"L1B_IR_UVN\",\"L1B_RA_BD1\",\"L1B_RA_BD2\",\"L1B_RA_BD3\",\"L1B_RA_BD4\",\"L1B_RA_BD5\",\"L1B_RA_BD6\",\"L1B_RA_BD7\",\"L1B_RA_BD8\"]);",
+											"",
+											"};",
+											"test_map.BaselineCollection=function (element) {pm.expect(element.Name).eq('BaselineCollection');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/[0-9]{2}/);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.BaselineCollection=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.OriginDate=function (element) {pm.expect(element.OriginDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ModificationDate=function (element) {pm.expect(element.ModificationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.Online=function (element) {pm.expect(element.Online).to.be.oneOf([TRUE,FALSE,true,false]);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_ENG_DB') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD1') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD2') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD5') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD8') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_AUX",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"AUX_BGHCHO\",\"AUX_BGSO2_\",\"AUX_BGO3__\",\"AUX_BGCLD_\",\"AUX_CTMCH4\",\"AUX_CTM_CO\",\"AUX_CTMFCT\",\"AUX_CTMANA\",\"AUX_NISE__\",\"AUX_MET_2D\",\"AUX_MET_QP\",\"AUX_MET_TP\",\"AUX_IERS_B\",\"AUX_IERS_C\",\"AUX_ISRF__\",\"AUX_L1_CKD\",\"AUX_O3___M\",\"MPL__NPIF_\",\"MPL__SAF__\",\"MPL__SPF__\",\"MPL_ORBPRE\",\"MPL_TLEPRE\",\"VIIRS_CM\",\"VIIRS_L1B_GEO\",\"VIIRS_L1B_RR\"]);",
+											"",
+											"};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"SENTINEL-5P\"]);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"OPER\",\"OFFL\",\"NRTI\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.OriginDate=function (element) {pm.expect(element.OriginDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ModificationDate=function (element) {pm.expect(element.ModificationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/);};",
+											"properties_map.Online=function (element) {pm.expect(element.Online).to.be.oneOf([TRUE,FALSE,true,false]);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGHCHO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGSO2_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGO3__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGCLD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMCH4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTM_CO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMFCT') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMANA') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_NISE__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_2D') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_QP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_TP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_B') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_C') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_ISRF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_L1_CKD') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_O3___M') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__NPIF_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SAF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SPF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_ORBPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_TLEPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_CM') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_GEO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_RR') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DD",
+					"item": [
+						{
+							"name": "S5P_L2_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.qualityStatus=function (element) {pm.expect(element.Name).eq('qualityStatus');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"DEGRADED\",\"NOMINAL\"]);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPNLL2DP\",\"upas-l2\",\"S5P_NPCC\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2__AER_AI\",\"L2__AER_LH\",\"L2__CH4___\",\"L2__CLOUD_\",\"L2__CO____\",\"L2__HCHO__\",\"L2__NO2___\",\"L2__NP_BD3\",\"L2__NP_BD6\",\"L2__NP_BD7\",\"L2__O3____\",\"L2__O3__PR\",\"L2__O3_TCL\",\"L2__SO2___\"]);",
+											"",
+											"};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.qualityStatus=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_AI') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_LH') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CH4___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CLOUD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CO____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__HCHO__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3__PR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3_TCL') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__SO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L1B_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"tropl10b\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/\\d.\\d.\\d.*/);};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1b\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1B_CA_SIR\",\"L1B_CA_UVN\",\"L1B_ENG_DB\",\"L1B_IR_SIR\",\"L1B_IR_UVN\",\"L1B_RA_BD1\",\"L1B_RA_BD2\",\"L1B_RA_BD3\",\"L1B_RA_BD4\",\"L1B_RA_BD5\",\"L1B_RA_BD6\",\"L1B_RA_BD7\",\"L1B_RA_BD8\"]);",
+											"",
+											"};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_ENG_DB') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD1') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD2') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD5') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD8') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_AUX",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"AUX_BGHCHO\",\"AUX_BGSO2_\",\"AUX_BGO3__\",\"AUX_BGCLD_\",\"AUX_CTMCH4\",\"AUX_CTM_CO\",\"AUX_CTMFCT\",\"AUX_CTMANA\",\"AUX_NISE__\",\"AUX_MET_2D\",\"AUX_MET_QP\",\"AUX_MET_TP\",\"AUX_IERS_B\",\"AUX_IERS_C\",\"AUX_ISRF__\",\"AUX_L1_CKD\",\"AUX_O3___M\",\"MPL__NPIF_\",\"MPL__SAF__\",\"MPL__SPF__\",\"MPL_ORBPRE\",\"MPL_TLEPRE\",\"VIIRS_CM\",\"VIIRS_L1B_GEO\",\"VIIRS_L1B_RR\"]);",
+											"",
+											"};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"SENTINEL-5P\"]);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"OPER\",\"OFFL\",\"NRTI\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGHCHO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGSO2_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGO3__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGCLD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMCH4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTM_CO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMFCT') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMANA') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_NISE__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_2D') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_QP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_TP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_B') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_C') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_ISRF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_L1_CKD') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_O3___M') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__NPIF_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SAF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SPF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_ORBPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_TLEPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_CM') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_GEO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_RR') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PR",
+					"item": [
+						{
+							"name": "Overpass",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2VOAER_AI\",\"L2VOAER_LH\",\"L2VO_CH4___\",\"L2VO_CLOUD_\",\"L2VO_CO____\",\"L2VOHCHO__\",\"L2VONO2___\",\"L2VOO3_TCL\",\"L2VOO3__PR\",\"L2VOO3____\",\"L2VOSO2___\",\"MPC_AER_AI\",\"MPC_AER_LH\",\"MPC_CH4___\",\"MPC_CLOUD_\",\"MPC_CO____\",\"MPC_FRESCO\",\"MPC_HCHO__\",\"MPC_NO2___\",\"MPC_O3_TCL\",\"MPC_O3____\",\"MPC_O3__PR\",\"MPC_SO2___\",\"MPC_NP_BD3\",\"MPC_NP_BD6\",\"MPC_NP_BD7\"]);",
+											"",
+											"};",
+											"test_map.baselineCollection=function (element) {pm.expect(element.Name).eq('baselineCollection');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/[0-9]{2}/);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"OPER\",\"OFFL\",\"NRTI\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.baselineCollection=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ProductionType=function (element) {pm.expect(element.ProductionType).to.be.oneOf([\"systematic_production\",\"on-demand default\",\"on-demand non-default\"]);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L2VOAER_AI') or contains(Name,'L2VOAER_LH') or contains(Name,'L2VO_CH4___') or contains(Name,'L2VO_CLOUD_') or contains(Name,'L2VO_CO____') or contains(Name,'L2VOHCHO__') or contains(Name,'L2VONO2___') or contains(Name,'L2VOO3_TCL') or contains(Name,'L2VOO3__PR') or contains(Name,'L2VOO3____') or contains(Name,'L2VOSO2___') or contains(Name,'MPC_AER_AI') or contains(Name,'MPC_AER_LH') or contains(Name,'MPC_CH4___') or contains(Name,'MPC_CLOUD_') or contains(Name,'MPC_CO____') or contains(Name,'MPC_FRESCO') or contains(Name,'MPC_HCHO__') or contains(Name,'MPC_NO2___') or contains(Name,'MPC_O3_TCL') or contains(Name,'MPC_O3____') or contains(Name,'MPC_O3__PR') or contains(Name,'MPC_SO2___') or contains(Name,'MPC_NP_BD3') or contains(Name,'MPC_NP_BD6') or contains(Name,'MPC_NP_BD7')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L2VOAER_AI') or contains(Name,'L2VOAER_LH') or contains(Name,'L2VO_CH4___') or contains(Name,'L2VO_CLOUD_') or contains(Name,'L2VO_CO____') or contains(Name,'L2VOHCHO__') or contains(Name,'L2VONO2___') or contains(Name,'L2VOO3_TCL') or contains(Name,'L2VOO3__PR') or contains(Name,'L2VOO3____') or contains(Name,'L2VOSO2___') or contains(Name,'MPC_AER_AI') or contains(Name,'MPC_AER_LH') or contains(Name,'MPC_CH4___') or contains(Name,'MPC_CLOUD_') or contains(Name,'MPC_CO____') or contains(Name,'MPC_FRESCO') or contains(Name,'MPC_HCHO__') or contains(Name,'MPC_NO2___') or contains(Name,'MPC_O3_TCL') or contains(Name,'MPC_O3____') or contains(Name,'MPC_O3__PR') or contains(Name,'MPC_SO2___') or contains(Name,'MPC_NP_BD3') or contains(Name,'MPC_NP_BD6') or contains(Name,'MPC_NP_BD7')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOAER_AI') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOAER_LH') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VO_CH4___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VO_CLOUD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VO_CO____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOHCHO__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VONO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOO3_TCL') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOO3__PR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOO3____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2VOSO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_AER_AI') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_AER_LH') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_CH4___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_CLOUD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_CO____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_FRESCO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_HCHO__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_NO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_O3_TCL') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_O3____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_O3__PR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_SO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_NP_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_NP_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPC_NP_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L0_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"S5P\"]);};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L0\"]);};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L0__ENG_A_\",\"L0__ODB_1_\",\"L0__ODB_2_\",\"L0__ODB_3_\",\"L0__ODB_4_\",\"L0__ODB_5_\",\"L0__ODB_6_\",\"L0__ODB_7_\",\"L0__ODB_8_\",\"L0__PDQ___\",\"L0__SAT_A_\"]);",
+											"",
+											"};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"",
+											"test_schema={};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ProductionType=function (element) {pm.expect(element.ProductionType).to.be.oneOf([\"systematic_production\",\"on-demand default\",\"on-demand non-default\"]);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L0__ENG_A_') or contains(Name,'L0__ODB_1_') or contains(Name,'L0__ODB_2_') or contains(Name,'L0__ODB_3_') or contains(Name,'L0__ODB_4_') or contains(Name,'L0__ODB_5_') or contains(Name,'L0__ODB_6_') or contains(Name,'L0__ODB_7_') or contains(Name,'L0__ODB_8_') or contains(Name,'L0__PDQ___') or contains(Name,'L0__SAT_A_')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L0__ENG_A_') or contains(Name,'L0__ODB_1_') or contains(Name,'L0__ODB_2_') or contains(Name,'L0__ODB_3_') or contains(Name,'L0__ODB_4_') or contains(Name,'L0__ODB_5_') or contains(Name,'L0__ODB_6_') or contains(Name,'L0__ODB_7_') or contains(Name,'L0__ODB_8_') or contains(Name,'L0__PDQ___') or contains(Name,'L0__SAT_A_')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ENG_A_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_1_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_2_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_3_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_4_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_5_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_6_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_7_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__ODB_8_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__PDQ___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L0__SAT_A_') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L2_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.qualityStatus=function (element) {pm.expect(element.Name).eq('qualityStatus');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"DEGRADED\",\"NOMINAL\"]);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\d/);};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPNLL2DP\",\"upas-l2\",\"S5P_NPCC\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L2__AER_AI\",\"L2__AER_LH\",\"L2__CH4___\",\"L2__CLOUD_\",\"L2__CO____\",\"L2__HCHO__\",\"L2__NO2___\",\"L2__NP_BD3\",\"L2__NP_BD6\",\"L2__NP_BD7\",\"L2__O3____\",\"L2__O3__PR\",\"L2__O3_TCL\",\"L2__SO2___\"]);",
+											"",
+											"};",
+											"test_map.baselineCollection=function (element) {pm.expect(element.Name).eq('baselineCollection');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/[0-9]{2}/);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.qualityStatus=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.baselineCollection=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ProductionType=function (element) {pm.expect(element.ProductionType).to.be.oneOf([\"systematic_production\",\"on-demand default\",\"on-demand non-default\"]);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L2__AER_AI') or contains(Name,'L2__AER_LH') or contains(Name,'L2__CH4___') or contains(Name,'L2__CLOUD_') or contains(Name,'L2__CO____') or contains(Name,'L2__HCHO__') or contains(Name,'L2__NO2___') or contains(Name,'L2__NP_BD3') or contains(Name,'L2__NP_BD6') or contains(Name,'L2__NP_BD7') or contains(Name,'L2__O3____') or contains(Name,'L2__O3__PR') or contains(Name,'L2__O3_TCL') or contains(Name,'L2__SO2___')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_AI') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__AER_LH') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CH4___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CLOUD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__CO____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__HCHO__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__NP_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3____') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3__PR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__O3_TCL') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L2__SO2___') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_L1B_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"Sentinel-5p\"]);};",
+											"test_map.instrumentShortName=function (element) {pm.expect(element.Name).eq('instrumentShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TROPOMI\"]);};",
+											"test_map.orbitNumber=function (element) {pm.expect(element.Name).eq('orbitNumber');pm.expect(element.ValueType).eq('Integer');pm.expect(element.Value).to.be.a(\"number\");pm.expect(element.Value).to.match(/[0-9]{5}/);};",
+											"test_map.coordinates=function (element) {pm.expect(element.Name).eq('coordinates');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\d/);};",
+											"test_map.processorName=function (element) {pm.expect(element.Name).eq('processorName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"tropl10b\"]);};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/\\d.\\d.\\d.*/);};",
+											"test_map.processingLevel=function (element) {pm.expect(element.Name).eq('processingLevel');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1b\"]);};",
+											"test_map.processingMode=function (element) {pm.expect(element.Name).eq('processingMode');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"L1B_CA_SIR\",\"L1B_CA_UVN\",\"L1B_ENG_DB\",\"L1B_IR_SIR\",\"L1B_IR_UVN\",\"L1B_RA_BD1\",\"L1B_RA_BD2\",\"L1B_RA_BD3\",\"L1B_RA_BD4\",\"L1B_RA_BD5\",\"L1B_RA_BD6\",\"L1B_RA_BD7\",\"L1B_RA_BD8\"]);",
+											"",
+											"};",
+											"test_map.BaselineCollection=function (element) {pm.expect(element.Name).eq('BaselineCollection');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.match(/[0-9]{2}/);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"TEST\",\"OGCA\",\"GSOV\",\"OPER\",\"NRTI\",\"OFFL\",\"RPRO\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.instrumentShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.orbitNumber=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.coordinates=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorName=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingLevel=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.processingMode=function (num) {pm.expect(num).to.be.within(0,1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.BaselineCollection=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ProductionType=function (element) {pm.expect(element.ProductionType).to.be.oneOf([\"systematic_production\",\"on-demand default\",\"on-demand non-default\"]);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'L1B_CA_SIR') or contains(Name,'L1B_CA_UVN') or contains(Name,'L1B_ENG_DB') or contains(Name,'L1B_IR_SIR') or contains(Name,'L1B_IR_UVN') or contains(Name,'L1B_RA_BD1') or contains(Name,'L1B_RA_BD2') or contains(Name,'L1B_RA_BD3') or contains(Name,'L1B_RA_BD4') or contains(Name,'L1B_RA_BD5') or contains(Name,'L1B_RA_BD6') or contains(Name,'L1B_RA_BD7') or contains(Name,'L1B_RA_BD8')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_CA_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_ENG_DB') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_SIR') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_IR_UVN') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD1') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD2') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD3') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD5') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD6') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD7') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'L1B_RA_BD8') and startswith(Name,'S5P')",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5P_AUX",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonDataElements = pm.response.json().value;",
+											"pm.test(\"Response time is less than \" +  environment[\"query-timeout\"] + \"ms\", function(){",
+											"    pm.expect(pm.response.responseTime).to.be.below(parseInt(environment[\"query-timeout\"]));",
+											"});",
+											"",
+											"pm.test(\"Test OData context\", function(){",
+											"    query_string = pm.request.url.getQueryString();",
+											"    if(query_string.includes(\"$expand=Attributes\")){",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products(Attributes())\");",
+											"    } else{",
+											"        pm.expect( pm.response.json()['@odata.context']).to.include(\"$metadata#Products\");",
+											"    }",
+											"});",
+											"",
+											"var TRUE = true;",
+											"var FALSE = false;",
+											"",
+											"test_map={};",
+											"test_map.beginningDateTime=function (element) {pm.expect(element.Name).eq('beginningDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.endingDateTime=function (element) {pm.expect(element.Name).eq('endingDateTime');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingDate=function (element) {pm.expect(element.Name).eq('processingDate');pm.expect(element.ValueType).eq('DateTimeOffset');pm.expect(element.Value).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)/);};",
+											"test_map.processingCenter=function (element) {pm.expect(element.Name).eq('processingCenter');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.processorVersion=function (element) {pm.expect(element.Name).eq('processorVersion');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');};",
+											"test_map.productType=function (element) {pm.expect(element.Name).eq('productType');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"AUX_BGHCHO\",\"AUX_BGSO2_\",\"AUX_BGO3__\",\"AUX_BGCLD_\",\"AUX_CTMCH4\",\"AUX_CTM_CO\",\"AUX_CTMFCT\",\"AUX_CTMANA\",\"AUX_NISE__\",\"AUX_MET_2D\",\"AUX_MET_QP\",\"AUX_MET_TP\",\"AUX_IERS_B\",\"AUX_IERS_C\",\"AUX_ISRF__\",\"AUX_L1_CKD\",\"AUX_O3___M\",\"MPL__NPIF_\",\"MPL__SAF__\",\"MPL__SPF__\",\"MPL_ORBPRE\",\"MPL_TLEPRE\",\"VIIRS_CM\",\"VIIRS_L1B_GEO\",\"VIIRS_L1B_RR\"]);",
+											"",
+											"};",
+											"test_map.platformShortName=function (element) {pm.expect(element.Name).eq('platformShortName');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"SENTINEL-5P\"]);};",
+											"test_map.productClass=function (element) {pm.expect(element.Name).eq('productClass');pm.expect(element.ValueType).eq('String');pm.expect(element.Value).to.be.a('string');pm.expect(element.Value).to.be.oneOf([\"OPER\",\"OFFL\",\"NRTI\"]);};",
+											"",
+											"test_schema={};",
+											"test_schema.beginningDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.endingDateTime=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingDate=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processingCenter=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.processorVersion=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productType=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.platformShortName=function (num) {pm.expect(num).to.be.eq(1)};",
+											"test_schema.productClass=function (num) {pm.expect(num).to.be.eq(1)};",
+											"",
+											"            ",
+											"properties_map = {};",
+											"properties_map.Id=function (element) {pm.expect(element.Id).to.match(/[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}/);};",
+											"properties_map.Name=function (element) {pm.expect(element.Name).to.be.a(\"string\");};",
+											"properties_map.ContentType=function (element) {pm.expect(element.ContentType).to.be.a(\"string\");};",
+											"properties_map.ContentLength=function (element) {pm.expect(element.ContentLength).to.be.a(\"number\");};",
+											"properties_map.PublicationDate=function (element) {pm.expect(element.PublicationDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.EvictionDate=function (element) {if(element.EvictionDate){ pm.expect(element.EvictionDate).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)/); }};",
+											"properties_map.Checksum=function (element) {for(i=0; i<element.Checksum.length; i++ ){pm.expect(element.Checksum[i].Algorithm).to.be.oneOf([\"MD5\",\"SHA-1\",\"SHA-256\",\"SHA-512\"]);checksum_algorithm = {'MD5': '[a-fA-F0-9]{32}', 'SHA-1': '[0-9a-f]{5,40}', 'SHA-256': '[A-Fa-f0-9]{64}', 'SHA-512': '[A-Fa-f0-9]{128}'};pm.expect(element.Checksum[i].Value).to.match(new RegExp(checksum_algorithm[element.Checksum[i].Algorithm]));}};",
+											"properties_map.ContentDate=function (element) {pm.expect(element.ContentDate[\"Start\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);pm.expect(element.ContentDate[\"End\"]).to.match(/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d(\\d*)Z/);};",
+											"properties_map.ProductionType=function (element) {pm.expect(element.ProductionType).to.be.oneOf([\"systematic_production\",\"on-demand default\",\"on-demand non-default\"]);};",
+											"properties_map.Footprint=function (element) {if(element.Footprint){ pm.expect(element.Footprint).to.match(/geography'SRID=\\d+;[LineString|MultiLineString|Polygon|Multipolygon|Point](.*)/); }};",
+											"",
+											"let schema_seen = {};",
+											"",
+											"function testSpecific(value, product){",
+											"",
+											"    if (schema_seen[value.Name]){",
+											"        schema_seen[value.Name]++;",
+											"    }else{",
+											"        schema_seen[value.Name]=1;",
+											"    }",
+											"",
+											"    if (test_map[value.Name]) {",
+											"        pm.test(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id, function(){test_map[value.Name](value, product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Attribute \"+value.Name + \" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"function propertySpecific(key, product){",
+											"    if (properties_map[key]) {",
+											"        pm.test(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id, function(){properties_map[key](product)});",
+											"    }",
+											"    else {",
+											"        pm.test.skip(\"Test Property \"+key+\" for Product: \"+product.Name+\" - \"+product.Id);",
+											"    }",
+											"}",
+											"",
+											"for (var counter = 0;  counter  < jsonDataElements.length; counter++){",
+											"    var product = jsonDataElements[counter];",
+											"    console.log(\"Processing Product: \"+product.Name+\" - \"+product.Id);",
+											"",
+											"    for (const[key, value] of Object.entries(properties_map)){",
+											"        propertySpecific(key, jsonDataElements[counter]);",
+											"    }",
+											"",
+											"    if(\"Attributes\" in jsonDataElements[counter]){",
+											"        schema_seen = {};",
+											"",
+											"        pm.test(\"Test Attributes list\", function(){",
+											"            pm.expect(jsonDataElements[counter].Attributes.length).to.be.above(0);",
+											"        });",
+											"",
+											"        jsonDataElements[counter].Attributes.forEach(function(elem){",
+											"            testSpecific(elem, jsonDataElements[counter]);",
+											"        });",
+											"        var product = jsonDataElements[counter];",
+											"        for (const[key, value] of Object.entries(test_schema)) {pm.test(\"Schema Attribute \"+key+\" Product \"+product.Name+\" - \"+product.Id, function(){",
+											"        if(schema_seen[key] == undefined){",
+											"            schema_seen[key] = 0;",
+											"        }",
+											"        value(schema_seen[key], product)});}",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{service-root-uri}}/odata/v1/Products?$expand=Attributes&$top=1&$filter=(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')",
+									"host": [
+										"{{service-root-uri}}"
+									],
+									"path": [
+										"odata",
+										"v1",
+										"Products"
+									],
+									"query": [
+										{
+											"key": "$expand",
+											"value": "Attributes"
+										},
+										{
+											"key": "$top",
+											"value": "1"
+										},
+										{
+											"key": "$filter",
+											"value": "(contains(Name,'AUX_BGHCHO') or contains(Name,'AUX_BGSO2_') or contains(Name,'AUX_BGO3__') or contains(Name,'AUX_BGCLD_') or contains(Name,'AUX_CTMCH4') or contains(Name,'AUX_CTM_CO') or contains(Name,'AUX_CTMFCT') or contains(Name,'AUX_CTMANA') or contains(Name,'AUX_NISE__') or contains(Name,'AUX_MET_2D') or contains(Name,'AUX_MET_QP') or contains(Name,'AUX_MET_TP') or contains(Name,'AUX_IERS_B') or contains(Name,'AUX_IERS_C') or contains(Name,'AUX_ISRF__') or contains(Name,'AUX_L1_CKD') or contains(Name,'AUX_O3___M') or contains(Name,'MPL__NPIF_') or contains(Name,'MPL__SAF__') or contains(Name,'MPL__SPF__') or contains(Name,'MPL_ORBPRE') or contains(Name,'MPL_TLEPRE') or contains(Name,'VIIRS_CM') or contains(Name,'VIIRS_L1B_GEO') or contains(Name,'VIIRS_L1B_RR')) and startswith(Name,'S5P')"
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGHCHO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGSO2_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGO3__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_BGCLD_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMCH4') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTM_CO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMFCT') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_CTMANA') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_NISE__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_2D') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_QP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_MET_TP') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_B') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_IERS_C') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_ISRF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_L1_CKD') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'AUX_O3___M') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__NPIF_') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SAF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL__SPF__') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_ORBPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'MPL_TLEPRE') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_CM') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_GEO') and startswith(Name,'S5P')",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "contains(Name,'VIIRS_L1B_RR') and startswith(Name,'S5P')",
 											"disabled": true
 										}
 									]
@@ -23234,6 +26290,12 @@
 											"key": "$filter",
 											"value": "contains(Name,'HK_RAW__') and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and startswith(att/OData.CSC.StringAttribute/Value,'HK_RAW'))",
 											"description": "Function on Property combined with Attributes Query",
+											"disabled": true
+										},
+										{
+											"key": "$filter",
+											"value": "OData.CSC.Intersects(area=geography'SRID=4326;POLYGON((-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345 45.234534534))')",
+											"description": "Geographic Query example",
 											"disabled": true
 										}
 									]
